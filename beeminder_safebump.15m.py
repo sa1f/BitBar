@@ -21,6 +21,8 @@ with open(configPath + 'beeminder_info.json', 'r') as infile:
 
 params = {'auth_token': info['auth_token']}
 baseUrl = baseUrl = "https://www.beeminder.com/api/v1/" + "users/" + info['username']
-r = requests.get(baseUrl + "/goals/" + info['goal_name'] + ".json", params=params)
 
-print r.json()['lanewidth'] - r.json()['delta']
+update = requests.get(baseUrl + "/goals/" + info['goal_name'] + ".json", params=params)
+refresh = requests.get(baseUrl + "/goals/" + info['goal_name'] + "/refresh_graph.json", params=params)
+
+print update.json()['lanewidth'] - update.json()['delta']
